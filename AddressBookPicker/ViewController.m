@@ -18,9 +18,10 @@
 {
     [super viewDidLoad];
     [self initTextView];
+   
     //Display number of contacts in the address book.
     NSString *countMessage=[NSString stringWithFormat:@" %d contacts in the address book.", [self ContactsCount]];
-    
+    //Font being set in the uibuilder. 
     self.contactCountLabel.text=countMessage;
      
    	// Do any additional setup after loading the view, typically from a nib.
@@ -37,12 +38,7 @@
     picker.peoplePickerDelegate=self;
     [self presentViewController:picker animated:YES completion:nil];
    
-    /*
-     //Replacing this block of code with new set so it displayes a person contact.
-     static int count=0;
-    [self messageString:[NSString stringWithFormat:@"Button pressed (%d)\n", ++count]];
-    [self scrollToEnd];*/
-}
+   }
 //Remove Keyboard when tapped uiview.
 - (IBAction)bkgdTap:(id)sender {
     [self.textView resignFirstResponder];
