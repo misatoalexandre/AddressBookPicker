@@ -12,7 +12,7 @@
                         <viewControllerLayoutGuide type="top" id="J3W-rp-08G"/>
                         <viewControllerLayoutGuide type="bottom" id="7mG-HB-vL0"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS">
+                    <view key="view" contentMode="scaleToFill" id="kh9-bI-dsS" customClass="UIControl">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                         <subviews>
@@ -46,6 +46,9 @@
                             </textView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <connections>
+                            <action selector="bkgdTap:" destination="vXZ-lx-hvc" eventType="touchUpInside" id="Mtq-rB-wHd"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="_textView" destination="EmG-mG-OJg" id="w7L-jW-336"/>

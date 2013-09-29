@@ -7,11 +7,17 @@
 //
 
 #import <UIKit/UIKit.h>
+//When using AddressBookUI, this AddressBook.h is automatically being imported,so technically, it doesn't need to be here.) For clarity, I'll leave it here for now.
+#import <AddressBook/AddressBook.h>
+#import <AddressBookUI/AddressBookUI.h>
+@interface ViewController : UIViewController<ABPeoplePickerNavigationControllerDelegate>
 
-@interface ViewController : UIViewController
+
+
 
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 - (IBAction)buttonGet:(id)sender;
+- (IBAction)bkgdTap:(id)sender;
 
 @end
