@@ -62,6 +62,7 @@
 -(void)displayPerson:(ABRecordRef)person{
     [self messageString:[NSString stringWithFormat:@"%@\n", [self getPersonNameDisplay:person]]];
     [self scrollToEnd];
+    [self messageString:[NSString stringWithFormat:@"%@\n",[self getPhoneDisplay:person]]];
 }
 
 #pragma mark-Address Book Display
@@ -98,6 +99,26 @@
         [personName appendString:orgName];
     }
     return personName;
+}
+-(NSString *)getPhoneDisplay:(ABRecordRef)person{
+    NSString *phoneStr=@"[none]";
+    NSMutableArray *phoneNumbersArray=[NSMutableArray arrayWithCapacity:0];
+    
+    //multi value property
+    ABMultiValueRef phoneNumbers=ABRecordCopyValue(person, kABPersonPhoneProperty);
+  
+    int phoneCount=ABMultiValueGetCount(phoneNumbers);
+    
+    for (int i=0; i<phoneCount; ++i) {
+        NSString *phone=(__bridge_transfer NSString *)ABMultiValueCopyValueAtIndex(phoneNumbers, i);
+        [phoneNumbersArray addObject:phone];
+    }
+    if (phoneNumbersArray.count) {
+        phoneStr=[NSString stringWithFormat:@"%d phone number %@:%@", phoneCount, phoneCount>1 ? @"s":@"",[phoneNumbersArray componentsJoinedByString:@","]];
+        
+    }
+    CFRelease(phoneNumbers);
+    return phoneStr;
 }
 #pragma mark-Address Book Display
 //3 required methods.
