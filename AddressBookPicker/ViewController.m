@@ -17,6 +17,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self initTextView];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -26,4 +27,17 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (IBAction)buttonGet:(id)sender {
+    static int count=0;
+    [self messageString:[NSString stringWithFormat:@"Button pressed (%d)\n", ++count]];
+    //[self scrollToEnd];
+}
+
+-(void)initTextView{
+    self.textView.font=[UIFont fontWithName:@"Courier" size:12];
+}
+
+-(void)messageString:(NSString *)messageString{
+    self.textView.text=[self.textView.text stringByAppendingString:messageString];
+}
 @end
