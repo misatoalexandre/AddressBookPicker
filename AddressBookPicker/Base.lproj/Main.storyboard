@@ -49,6 +49,7 @@
                     </view>
                     <connections>
                         <outlet property="_textView" destination="EmG-mG-OJg" id="w7L-jW-336"/>
+                        <outlet property="textView" destination="EmG-mG-OJg" id="z76-c2-j9N"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="x5A-6p-PRh" sceneMemberID="firstResponder"/>
