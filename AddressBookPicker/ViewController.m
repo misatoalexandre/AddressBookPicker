@@ -19,8 +19,11 @@
     [super viewDidLoad];
     [self initTextView];
     //Display number of contacts in the address book.
-    [self messageString:[NSString stringWithFormat:@"There are %d contacts in the database.\n",[self ContactsCount]]];
-	// Do any additional setup after loading the view, typically from a nib.
+    NSString *countMessage=[NSString stringWithFormat:@" %d contacts in the address book.", [self ContactsCount]];
+    
+    self.contactCountLabel.text=countMessage;
+     
+   	// Do any additional setup after loading the view, typically from a nib.
 }
 
 - (void)didReceiveMemoryWarning

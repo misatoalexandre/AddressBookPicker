@@ -12,9 +12,7 @@
 #import <AddressBookUI/AddressBookUI.h>
 @interface ViewController : UIViewController<ABPeoplePickerNavigationControllerDelegate>
 
-
-
-
+@property (weak, nonatomic) IBOutlet UILabel *contactCountLabel;
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 - (IBAction)buttonGet:(id)sender;
