@@ -18,6 +18,8 @@
 {
     [super viewDidLoad];
     [self initTextView];
+    //Display number of contacts in the address book.
+    [self messageString:[NSString stringWithFormat:@"There are %d contacts in the database.\n",[self ContactsCount]]];
 	// Do any additional setup after loading the view, typically from a nib.
 }
 
@@ -58,15 +60,46 @@
     
 }
 -(void)displayPerson:(ABRecordRef)person{
-    [self messageString:@"displayPerson\n"];
+    [self messageString:[NSString stringWithFormat:@"%@\n", [self getPersonNameDisplay:person]]];
     [self scrollToEnd];
 }
 
 #pragma mark-Address Book Display
 -(int)ContactsCount{
-    return 1;
-}
+    NSError *error=nil;
+    //Core foundation is written in C++. Typedef.
+    ABAddressBookRef addressBook=ABAddressBookCreateWithOptions(NULL, (CFErrorRef *)(void *)&error);
+   //CFIndex is TypeDef signed long.
+    CFIndex nPeople=ABAddressBookGetPersonCount(addressBook);
+    
+    //Since you created an object with ABAddressBookCreateWithOprions, you need to CFRelease it in order to avoid memory leak.
+    CFRelease(addressBook);
 
+    return (int)nPeople;
+}
+-(NSString *)getPersonNameDisplay:(ABRecordRef)person{
+    //init empty string and array.
+    NSMutableString *personName=[[NSMutableString alloc]initWithString:@""];
+    NSMutableArray *partsOfName=[NSMutableArray arrayWithCapacity:0];
+    
+    //c++ cast.__brindge_transfer transfers C++ non ARC managed string to NSString ARC managed object.
+    NSString *orgName=(__bridge_transfer NSString *)ABRecordCopyValue(person, kABPersonOrganizationProperty);
+    
+    //declaring C array.
+    const int k[]={kABPersonPrefixProperty, kABPersonFirstNameProperty, kABPersonMiddleNameProperty, kABPersonLastNameProperty, kABPersonSuffixProperty, -1};
+    //declaring c loop that checks each ABproperty in k[].
+    for (int i=0; k[i]>=0; ++i) {
+        NSString *s=(__bridge_transfer NSString *)ABRecordCopyValue(person, k[i]);
+        if (s) [partsOfName addObject:s];
+    }
+    [personName appendString:[partsOfName componentsJoinedByString:@""]];
+    if (orgName) {
+        if ([personName length]) [personName appendString:@","];
+        [personName appendString:orgName];
+    }
+    return personName;
+}
+#pragma mark-Address Book Display
 //3 required methods.
 - (BOOL)peoplePickerNavigationController:(ABPeoplePickerNavigationController *)peoplePicker shouldContinueAfterSelectingPerson:(ABRecordRef)person property:(ABPropertyID)property identifier:(ABMultiValueIdentifier)identifier{
     
