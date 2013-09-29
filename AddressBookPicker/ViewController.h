@@ -18,6 +18,7 @@
 @property (weak, nonatomic) IBOutlet UITextView *textView;
 
 - (IBAction)buttonGet:(id)sender;
+//hide the keyboard when background is tapped.
 - (IBAction)bkgdTap:(id)sender;
 
 @end
